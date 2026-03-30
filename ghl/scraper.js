@@ -10,6 +10,9 @@
  * Usage:
  *   APIFY_TOKEN=your_token node ghl/scraper.js
  *
+ * Dry-run (no Apify calls, uses mock data to test CSV + state rotation):
+ *   node ghl/scraper.js --dry-run
+ *
  * Cron example (run daily at 2 AM):
  *   0 2 * * * cd /path/to/AceMedia && APIFY_TOKEN=your_token node ghl/scraper.js >> logs/scraper.log 2>&1
  */
@@ -18,6 +21,30 @@ const fs   = require('fs');
 const path = require('path');
 const https = require('https');
 const config = require('./config');
+
+const DRY_RUN = process.argv.includes('--dry-run');
+
+// ---------------------------------------------------------------------------
+// Mock data for --dry-run mode
+// ---------------------------------------------------------------------------
+
+function mockItems(searchTerm, state, count = 5) {
+  return Array.from({ length: count }, (_, i) => ({
+    title:        `${searchTerm} Pro ${i + 1}`,
+    categoryName: searchTerm,
+    address:      `${100 + i} Main St`,
+    city:         state,
+    postalCode:   `${10000 + i}`,
+    countryCode:  'US',
+    phone:        `+1-555-${String(i).padStart(4, '0')}`,
+    website:      `https://example${i}.com`,
+    totalScore:   (4 + Math.random()).toFixed(1),
+    reviewsCount: Math.floor(Math.random() * 200) + 10,
+    location:     { lat: 34.05 + i * 0.01, lng: -118.24 + i * 0.01 },
+    url:          `https://maps.google.com/?cid=${i}`,
+    placeId:      `ChIJ_mock_${i}`,
+  }));
+}
 
 // ---------------------------------------------------------------------------
 // HTTP helper (no external dependencies — uses Node built-in https)
@@ -205,7 +232,7 @@ function buildCSV(records) {
 
 async function main() {
   // ── Guards ──────────────────────────────────────────────────────────────
-  if (!config.APIFY_TOKEN) {
+  if (!DRY_RUN && !config.APIFY_TOKEN) {
     console.error('ERROR: APIFY_TOKEN is not set. Export it before running:\n  export APIFY_TOKEN=your_token');
     process.exit(1);
   }
@@ -220,12 +247,13 @@ async function main() {
 
   console.log('\n========================================');
   console.log(' AceMedia — GHL Daily Lead Scraper');
+  if (DRY_RUN) console.log(' *** DRY RUN — no Apify calls ***');
   console.log('========================================');
   console.log(`  Date        : ${today}`);
   console.log(`  State       : ${state} (slot ${index + 1}/50)`);
   console.log(`  Terms       : ${config.SEARCH_TERMS.join(', ')}`);
-  console.log(`  Per term    : ${config.RESULTS_PER_TERM} results`);
-  console.log(`  Max total   : ${config.SEARCH_TERMS.length * config.RESULTS_PER_TERM} records`);
+  console.log(`  Per term    : ${DRY_RUN ? '5 (mock)' : config.RESULTS_PER_TERM} results`);
+  console.log(`  Max total   : ${DRY_RUN ? config.SEARCH_TERMS.length * 5 : config.SEARCH_TERMS.length * config.RESULTS_PER_TERM} records`);
   console.log('========================================\n');
 
   const allRecords = [];
@@ -236,11 +264,16 @@ async function main() {
     console.log(`► Scraping: "${query}"`);
 
     try {
-      const runData      = await startRun(query);
-      console.log(`  Run started: ${runData.id}`);
-
-      const finishedRun  = await pollUntilFinished(runData.id);
-      const items        = await fetchDatasetItems(finishedRun.defaultDatasetId);
+      let items;
+      if (DRY_RUN) {
+        console.log('  [dry-run] Using mock data');
+        items = mockItems(term, state, 5);
+      } else {
+        const runData     = await startRun(query);
+        console.log(`  Run started: ${runData.id}`);
+        const finishedRun = await pollUntilFinished(runData.id);
+        items             = await fetchDatasetItems(finishedRun.defaultDatasetId);
+      }
       console.log(`  Results fetched: ${items.length}`);
 
       for (const item of items) {
