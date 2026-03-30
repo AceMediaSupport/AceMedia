@@ -1,0 +1,4 @@
+.env
+watched/*.csv
+node_modules/
+logs/

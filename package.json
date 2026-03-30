@@ -1,0 +1,13 @@
+{
+  "name": "acemedia-ghl-scraper",
+  "version": "1.0.0",
+  "description": "Daily Apify Google Maps scraper rotating through US states for GHL lead import",
+  "main": "ghl/scraper.js",
+  "scripts": {
+    "scrape": "node ghl/scraper.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "license": "MIT"
+}
