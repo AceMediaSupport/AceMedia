@@ -1,0 +1,13 @@
+{
+  "name": "acemedia-sheets",
+  "version": "1.0.0",
+  "description": "AceMedia Google Sheets Template Generator for Etsy Shop",
+  "main": "generator.js",
+  "scripts": {
+    "generate": "node generator.js",
+    "generate:category": "node generator.js --category"
+  },
+  "dependencies": {
+    "exceljs": "^4.4.0"
+  }
+}
