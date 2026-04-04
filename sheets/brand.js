@@ -1,42 +1,43 @@
-// AceMedia Brand Configuration
-// Consistent branding across all 105+ Google Sheets templates
+// LilyPadShopDesigns Brand Configuration
+// Consistent branding across all Google Sheets templates
+// Lily pad-inspired color palette: soft greens, warm pinks, natural tones
 
 const BRAND = {
-  name: 'AceMedia',
+  name: 'LilyPad Shop Designs',
   tagline: 'Organize Your Life Beautifully',
-  website: 'acemediamarketing.net',
+  website: 'etsy.com/shop/LilyPadShopDesigns',
 
-  // Primary color palette
+  // Primary color palette — Lily pad / botanical inspired
   colors: {
-    primary:      'FF2D5B6B',  // Deep teal
-    primaryLight: 'FF4A8A9B',  // Light teal
-    secondary:    'FFF4A261',  // Warm amber/gold
-    accent:       'FFE76F51',  // Coral accent
-    dark:         'FF264653',  // Dark navy-teal
-    light:        'FFEDF6F9',  // Soft ice blue
+    primary:      'FF4A7C59',  // Lily pad green
+    primaryLight: 'FF7DB88A',  // Soft sage green
+    secondary:    'FFE8A0BF',  // Soft pink (water lily)
+    accent:       'FFD4956A',  // Warm terracotta
+    dark:         'FF2C5234',  // Deep forest green
+    light:        'FFF0F7F1',  // Pale mint background
     white:        'FFFFFFFF',
-    offWhite:     'FFF8F9FA',
+    offWhite:     'FFF8FAF8',
     lightGray:    'FFE9ECEF',
     medGray:      'FFADB5BD',
     darkGray:     'FF495057',
     black:        'FF212529',
-    success:      'FF2A9D8F',  // Green-teal
-    warning:      'FFE9C46A',  // Soft yellow
-    danger:       'FFE76F51',  // Coral-red
+    success:      'FF5BA67D',  // Fresh green
+    warning:      'FFEBC878',  // Soft gold
+    danger:       'FFD97070',  // Muted rose
   },
 
   // Category-specific accent colors
   categoryColors: {
-    'budget-finance':     { header: 'FF2D5B6B', accent: 'FF2A9D8F', light: 'FFE0F5F0' },
-    'business':           { header: 'FF264653', accent: 'FFF4A261', light: 'FFFFF3E0' },
-    'health-fitness':     { header: 'FF2A9D8F', accent: 'FFE76F51', light: 'FFE8F5E9' },
-    'home-organization':  { header: 'FF4A8A9B', accent: 'FFF4A261', light: 'FFEDF6F9' },
-    'meal-planning':      { header: 'FFE76F51', accent: 'FF2A9D8F', light: 'FFFCE4EC' },
-    'travel-events':      { header: 'FFF4A261', accent: 'FF264653', light: 'FFFFF8E1' },
-    'student-education':  { header: 'FF5B8DBE', accent: 'FFF4A261', light: 'FFE3F2FD' },
-    'productivity-goals': { header: 'FF7B68A5', accent: 'FF2A9D8F', light: 'FFF3E5F5' },
-    'family-kids':        { header: 'FFE88D67', accent: 'FF4A8A9B', light: 'FFFFF3E0' },
-    'self-care-wellness': { header: 'FFB5838D', accent: 'FF2D5B6B', light: 'FFFCE4EC' },
+    'budget-finance':     { header: 'FF4A7C59', accent: 'FF5BA67D', light: 'FFECF5EE' },
+    'business':           { header: 'FF2C5234', accent: 'FFD4956A', light: 'FFF5EDE4' },
+    'health-fitness':     { header: 'FF5BA67D', accent: 'FFE8A0BF', light: 'FFECF5EE' },
+    'home-organization':  { header: 'FF7DB88A', accent: 'FFD4956A', light: 'FFF0F7F1' },
+    'meal-planning':      { header: 'FFD4956A', accent: 'FF5BA67D', light: 'FFF5EDE4' },
+    'travel-events':      { header: 'FF6B9BC0', accent: 'FF4A7C59', light: 'FFEBF2F8' },
+    'student-education':  { header: 'FF7A9BBF', accent: 'FFD4956A', light: 'FFEBF2F8' },
+    'productivity-goals': { header: 'FF8B7BAD', accent: 'FF5BA67D', light: 'FFF0ECF5' },
+    'family-kids':        { header: 'FFE8A0BF', accent: 'FF7DB88A', light: 'FFFDF0F6' },
+    'self-care-wellness': { header: 'FFCB8DA0', accent: 'FF4A7C59', light: 'FFFDF0F6' },
   },
 
   // Font configuration (Google Sheets will use these when imported)
@@ -52,7 +53,7 @@ const BRAND = {
   borders: {
     thin: { style: 'thin', color: { argb: 'FFD0D0D0' } },
     medium: { style: 'medium', color: { argb: 'FFADB5BD' } },
-    thick: { style: 'medium', color: { argb: 'FF264653' } },
+    thick: { style: 'medium', color: { argb: 'FF2C5234' } },
   },
 };
 

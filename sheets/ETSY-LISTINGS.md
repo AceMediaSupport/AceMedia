@@ -1,6 +1,6 @@
-# AceMedia — Etsy Google Sheets Shop Listings Plan
+# LilyPadShopDesigns — Etsy Google Sheets Shop Listings Plan
 
-## Brand: AceMedia (by Anna)
+## Brand: LilyPad Shop Designs
 **Tagline:** Organize Your Life Beautifully
 **Niche:** Google Sheets & Excel templates for budgets, trackers, planners, and small business
 
