@@ -66,10 +66,17 @@ def authenticate():
         print(f"     {SCRIPT_DIR}")
         sys.exit(1)
 
-    # Run OAuth2 flow - generates a link for the user
+    # Run OAuth2 flow - generates a link for the user to visit
     flow = InstalledAppFlow.from_client_secrets_file(
         CLIENT_SECRET_FILE,
         scopes=SCOPES,
+        redirect_uri="http://localhost",
+    )
+
+    auth_url, state = flow.authorization_url(
+        prompt="consent",
+        login_hint="gonzalber7000@gmail.com",
+        access_type="offline",
     )
 
     print("\n" + "=" * 60)
@@ -77,24 +84,15 @@ def authenticate():
     print("=" * 60)
     print(f"\nAuthenticating for: gonzalber7000@gmail.com")
     print("Make sure to sign in with the correct Google account.\n")
+    print("1. Open this URL in your browser:\n")
+    print(auth_url)
+    print("\n2. Sign in and grant access.")
+    print("3. Your browser will redirect to a localhost URL that won't load.")
+    print("   That's OK! Copy the FULL URL from the address bar and paste below.\n")
 
-    # Use run_local_server with open_browser=False to get a clickable link
-    # Using port 0 picks a random available port
-    try:
-        creds = flow.run_local_server(
-            port=8080,
-            open_browser=False,
-            prompt="consent",
-            login_hint="gonzalber7000@gmail.com",
-        )
-    except OSError:
-        # If port 8080 is taken, try a random port
-        creds = flow.run_local_server(
-            port=0,
-            open_browser=False,
-            prompt="consent",
-            login_hint="gonzalber7000@gmail.com",
-        )
+    redirect_response = input("Paste the full redirect URL here: ").strip()
+    flow.fetch_token(authorization_response=redirect_response)
+    creds = flow.credentials
 
     # Save the token
     save_token(creds)
