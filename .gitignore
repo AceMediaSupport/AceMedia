@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Script outputs
+scripts/out/
+
+# Local secrets
+*cookies*.txt
+.env
